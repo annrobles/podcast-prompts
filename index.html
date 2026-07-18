@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Podcast Prompts</title>
+<style>
+  body {
+    font-family: 'Georgia', serif;
+    background-color: #f7f5f2;
+    color: #2b2b2b;
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+  }
+  h1 {
+    font-size: 28px;
+    border-bottom: 3px solid #b5442e;
+    padding-bottom: 12px;
+    margin-bottom: 30px;
+  }
+  ol {
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 16px;
+    font-size: 18px;
+    padding-left: 6px;
+  }
+  li::marker {
+    color: #b5442e;
+    font-weight: bold;
+  }
+  li.hidden {
+    display: none;
+  }
+  li.chosen {
+    background-color: #fdf0e6;
+    border-left: 4px solid #b5442e;
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  #pickBtn {
+    background-color: #b5442e;
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 30px;
+  }
+  #pickBtn:hover {
+    background-color: #963a26;
+  }
+  #resetBtn {
+    background: none;
+    border: 1px solid #b5442e;
+    color: #b5442e;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+</style>
+</head>
+<body>
+
+<h1>12 Podcast Prompts</h1>
+
+<button id="pickBtn" onclick="pickRandomTopic()">🎲 Pick a Random Topic</button>
+<button id="resetBtn" onclick="resetTopics()" style="display:none;">Show All Topics</button>
+
+<ol id="topicList">
+  <li class="hidden" value="1">The Power of Failure: Why Setbacks Fuel Success</li>
+  <li class="hidden" value="2">How Technology Is Reshaping Human Connection</li>
+  <li class="hidden" value="3">Overcoming Fear: Lessons from Facing the Unknown</li>
+  <li class="hidden" value="4">The Importance of Lifelong Learning in a Changing World</li>
+  <li class="hidden" value="5">Why Kindness Is a Superpower, Not a Weakness</li>
+  <li class="hidden" value="6">The Future of Work: Adapting to Automation and AI</li>
+  <li class="hidden" value="7">Finding Purpose: How to Align Passion with Career</li>
+  <li class="hidden" value="8">The Environment We Leave Behind: A Call to Action</li>
+  <li class="hidden" value="9">Public Speaking Itself: Turning Anxiety into Confidence</li>
+  <li class="hidden" value="10">The Value of Diversity in Building Stronger Communities</li>
+  <li class="hidden" value="11">Fast food</li>
+  <li class="hidden" value="12">Roses are red</li>
+</ol>
+
+<script>
+  function pickRandomTopic() {
+    const items = document.querySelectorAll('#topicList li');
+    const randomIndex = Math.floor(Math.random() * items.length);
+
+    items.forEach((li, i) => {
+      li.classList.remove('chosen');
+      if (i === randomIndex) {
+        li.classList.remove('hidden');
+        li.classList.add('chosen');
+      } else {
+        li.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('resetBtn').style.display = 'inline-block';
+  }
+
+  function resetTopics() {
+    const items = document.querySelectorAll('#topicList li');
+    items.forEach(li => {
+      li.classList.remove('hidden');
+      li.classList.remove('chosen');
+    });
+    document.getElementById('resetBtn').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
