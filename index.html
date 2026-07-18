@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Podcast Prompts</title>
+<style>
+  body {
+    font-family: 'Georgia', serif;
+    background-color: #f7f5f2;
+    color: #2b2b2b;
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+  }
+  h1 {
+    font-size: 28px;
+    border-bottom: 3px solid #b5442e;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+  ol {
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 16px;
+    font-size: 18px;
+    padding-left: 6px;
+  }
+  li::marker {
+    color: #b5442e;
+    font-weight: bold;
+  }
+  li.hidden {
+    display: none;
+  }
+  li.chosen {
+    background-color: #fdf0e6;
+    border-left: 4px solid #b5442e;
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  #pickBtn {
+    background-color: #b5442e;
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 30px;
+  }
+  #pickBtn:hover {
+    background-color: #963a26;
+  }
+  #resetBtn {
+    background: none;
+    border: 1px solid #b5442e;
+    color: #b5442e;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  #quoteBtn {
+    background-color: #b5442e;
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  #quoteBtn:hover {
+    background-color: #963a26;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd6cc;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 10px 18px;
+    cursor: pointer;
+    color: #6b6b6b;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover {
+    color: #b5442e;
+  }
+  .tab-btn.active {
+    color: #b5442e;
+    font-weight: bold;
+    border-bottom: 3px solid #b5442e;
+  }
+  .tab-panel {
+    display: none;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+
+  /* Quotes tab */
+  .quote-card {
+    background-color: #fdf0e6;
+    border-left: 4px solid #b5442e;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+  }
+  .quote-card.hidden {
+    display: none;
+  }
+  .quote-text {
+    font-size: 19px;
+    font-style: italic;
+    margin: 0 0 8px 0;
+  }
+  .quote-author {
+    font-size: 15px;
+    color: #6b6b6b;
+    text-align: right;
+    margin: 0;
+  }
+  .quote-author::before {
+    content: "— ";
+  }
+
+  /* Flowers tab */
+  .flower-wrap {
+    text-align: center;
+  }
+  .flower-card.hidden {
+    display: none;
+  }
+  .flower-wrap img {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  }
+  .flower-caption {
+    margin-top: 14px;
+    font-size: 15px;
+    color: #6b6b6b;
+    font-style: italic;
+  }
+  #flowerBtn {
+    background-color: #b5442e;
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 18px;
+  }
+  #flowerBtn:hover {
+    background-color: #963a26;
+  }
+</style>
+</head>
+<body>
+
+<h1>12 Podcast Prompts</h1>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab(1)">Podcast Prompts</button>
+  <button class="tab-btn" onclick="switchTab(2)">Quotes</button>
+  <button class="tab-btn" onclick="switchTab(3)">Flowers</button>
+</div>
+
+<!-- TAB 1: Podcast Prompts (original functionality) -->
+<div id="tab1" class="tab-panel active">
+  <button id="pickBtn" onclick="pickRandomTopic()">🎲 Pick a Random Topic</button>
+  <button id="resetBtn" onclick="resetTopics()" style="display:none;">Show All Topics</button>
+
+  <ol id="topicList">
+    <li class="hidden" value="1">The Power of Failure: Why Setbacks Fuel Success</li>
+    <li class="hidden" value="2">How Technology Is Reshaping Human Connection</li>
+    <li class="hidden" value="3">Overcoming Fear: Lessons from Facing the Unknown</li>
+    <li class="hidden" value="4">The Importance of Lifelong Learning in a Changing World</li>
+    <li class="hidden" value="5">Why Kindness Is a Superpower, Not a Weakness</li>
+    <li class="hidden" value="6">The Future of Work: Adapting to Automation and AI</li>
+    <li class="hidden" value="7">Finding Purpose: How to Align Passion with Career</li>
+    <li class="hidden" value="8">The Environment We Leave Behind: A Call to Action</li>
+    <li class="hidden" value="9">Public Speaking Itself: Turning Anxiety into Confidence</li>
+    <li class="hidden" value="10">The Value of Diversity in Building Stronger Communities</li>
+    <li class="hidden" value="11">Fast food</li>
+    <li class="hidden" value="12">Roses are red</li>
+  </ol>
+</div>
+
+<!-- TAB 2: Quotes -->
+<div id="tab2" class="tab-panel">
+  <ol id="quoteList" style="list-style:none; padding-left:0;">
+    <li class="quote-card hidden">
+      <p class="quote-text">"The only way to do great work is to love what you do."</p>
+      <p class="quote-author">Steve Jobs</p>
+    </li>
+    <li class="quote-card hidden">
+      <p class="quote-text">"It does not matter how slowly you go, as long as you do not stop."</p>
+      <p class="quote-author">Confucius</p>
+    </li>
+    <li class="quote-card hidden">
+      <p class="quote-text">"Courage is not the absence of fear, but the triumph over it."</p>
+      <p class="quote-author">Nelson Mandela</p>
+    </li>
+    <li class="quote-card hidden">
+      <p class="quote-text">"The future belongs to those who believe in the beauty of their dreams."</p>
+      <p class="quote-author">Eleanor Roosevelt</p>
+    </li>
+    <li class="quote-card hidden">
+      <p class="quote-text">"Whether you think you can or think you can't, you're right."</p>
+      <p class="quote-author">Henry Ford</p>
+    </li>
+    <li class="quote-card hidden">
+      <p class="quote-text">"Speak your mind, even if your voice shakes."</p>
+      <p class="quote-author">Maggie Kuhn</p>
+    </li>
+  </ol>
+  <button id="quoteBtn" onclick="showRandomQuote()">🔀 Another Quote</button>
+</div>
+
+<!-- TAB 3: Flowers -->
+<div id="tab3" class="tab-panel">
+  <div class="flower-wrap">
+    <div id="flowerList">
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1689850854933-c851b077fe1b?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A close-up of a bunch of wild flowers in a field">
+        <p class="flower-caption">Wild flowers in a field, Borek, Czechia — photo by Peter Franken on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A red rose flower">
+        <p class="flower-caption">Red rose — photo by Edward Howell on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1687889310569-5312213366ef?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A single red tulip in the middle of a field">
+        <p class="flower-caption">A single red tulip in a field — photo by Nikolett Emmert on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1574757008324-b75b56617870?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A sunflower">
+        <p class="flower-caption">Sunflower — photo by Jem Sahagun on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1471899236350-e3016bf1e69e?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Selective focus photography of a pink petaled flower">
+        <p class="flower-caption">Pink petaled flower — photo by Andrew Small on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A pink petaled flower">
+        <p class="flower-caption">Pink flower — photo by Han Chenxu on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A white daisy in bloom during daytime">
+        <p class="flower-caption">White daisy in bloom — photo by AARN GIRI on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1538998073820-4dfa76300194?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A pink and white lotus flower">
+        <p class="flower-caption">Pink and white lotus flower — photo by Zoltan Tasi on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1516205651411-aef33a44f7c2?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A sakura cherry blossom tree in bloom">
+        <p class="flower-caption">Sakura cherry blossoms in bloom — photo by Meriç Dağlı on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1470509037663-253afd7f0f51?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Close-up photo of a common sunflower">
+        <p class="flower-caption">Close-up of a common sunflower — photo by Paul Green on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1523224042829-4731dd15a3bb?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="White-and-pink flowers">
+        <p class="flower-caption">White-and-pink flowers — photo by Masaaki Komori on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1615280825886-fa817c0a06cc?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="White cherry blossom in close-up photography">
+        <p class="flower-caption">White cherry blossom close-up — photo by Jei Lee on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1520763185298-1b434c919102?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A pink flower">
+        <p class="flower-caption">Pink flower — photo by RoonZ nl on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1560790671-b76ca4de55ef?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Red and white petaled flower close-up photography">
+        <p class="flower-caption">Red and white petaled flower — photo by Evie S. on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1474112704314-8162b7749a90?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Closeup photo of a white petaled flower">
+        <p class="flower-caption">White petaled flower — photo by Quino Al on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1447875569765-2b3db822bec9?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Selective photography of purple petaled flowers">
+        <p class="flower-caption">Purple petaled flowers — photo by Annie Spratt on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1546842931-886c185b4c8c?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Pink dahlia flowers in focus photography">
+        <p class="flower-caption">Pink dahlia flowers — photo by MIO ITO on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1610397648930-477b8c7f0943?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Purple moth orchids in bloom">
+        <p class="flower-caption">Purple moth orchids in bloom — photo by Zoltan Tasi on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1542407242725-7d7f3d865665?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Red petals">
+        <p class="flower-caption">Red petals — photo by Pawel Czerwinski on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1582862058398-c157c8424b54?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Blue and white flowers in tilt shift lens">
+        <p class="flower-caption">Blue and white flowers — photo by Kseniia Ilinykh on Unsplash</p>
+      </div>
+      <div class="flower-card hidden">
+        <img src="https://images.unsplash.com/photo-1583846712268-a77d97b7fd68?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="White moth orchids in bloom">
+        <p class="flower-caption">White moth orchids in bloom — photo by Alexandra Nosova on Unsplash</p>
+      </div>
+    </div>
+    <button id="flowerBtn" onclick="showRandomFlower()">🌸 Another Flower</button>
+  </div>
+</div>
+
+<script>
+  function switchTab(n) {
+    document.querySelectorAll('.tab-panel').forEach((panel, i) => {
+      panel.classList.toggle('active', i === n - 1);
+    });
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i === n - 1);
+    });
+  }
+
+  function pickRandomTopic() {
+    const items = document.querySelectorAll('#topicList li');
+    const randomIndex = Math.floor(Math.random() * items.length);
+
+    items.forEach((li, i) => {
+      li.classList.remove('chosen');
+      if (i === randomIndex) {
+        li.classList.remove('hidden');
+        li.classList.add('chosen');
+      } else {
+        li.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('resetBtn').style.display = 'inline-block';
+  }
+
+  function resetTopics() {
+    const items = document.querySelectorAll('#topicList li');
+    items.forEach(li => {
+      li.classList.remove('hidden');
+      li.classList.remove('chosen');
+    });
+    document.getElementById('resetBtn').style.display = 'none';
+  }
+
+  function showRandomQuote() {
+    const quotes = document.querySelectorAll('#quoteList .quote-card');
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    quotes.forEach((q, i) => {
+      q.classList.toggle('hidden', i !== randomIndex);
+    });
+  }
+
+  function showRandomFlower() {
+    const flowers = document.querySelectorAll('#flowerList .flower-card');
+    const randomIndex = Math.floor(Math.random() * flowers.length);
+    flowers.forEach((f, i) => {
+      f.classList.toggle('hidden', i !== randomIndex);
+    });
+  }
+
+  // Pick a fresh random quote and flower each time the page loads
+  showRandomQuote();
+  showRandomFlower();
+</script>
+
+</body>
+</html>
